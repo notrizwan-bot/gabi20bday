@@ -33,7 +33,7 @@ export default function Home() {
       <section className="chaotic-grid">
         <div className="brutalist-card" style={{ gridColumn: "span 6" }}>
           <h2>KPIs (Key Performance Indicators)</h2>
-          <ul style={{ listSet: "none", marginTop: "1rem", lineHeight: "2" }}>
+          <ul style={{ listStyle: "none", marginTop: "1rem", lineHeight: "2" }}>
             <li>• Coffee Addiction: <span className="highlight">LEVEL 99</span></li>
             <li>• Unanswered DMs: 4,500+</li>
             <li>• Sarcasm Accuracy: 99.8%</li>
