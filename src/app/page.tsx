@@ -24,9 +24,26 @@ export default function Home() {
     requestAnimationFrame(raf);
 
     const targetDate = new Date("2027-05-05T00:50:00");
-...
+    const timer = setInterval(() => {
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
+
+      if (difference <= 0) {
+        clearInterval(timer);
+        return;
+      }
+
+      setTimeLeft({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60)
+      });
+    }, 1000);
+
     return () => {
       clearInterval(timer);
+      lenis.destroy();
     };
   }, []);
 
