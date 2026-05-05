@@ -2,10 +2,10 @@
 
 import { Component as EtheralShadow } from "@/components/ui/etheral-shadow";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 
 export default function Home() {
   const [timeLeft, setTimeLeft] = useState({
@@ -265,11 +265,15 @@ export default function Home() {
                   transition={{ delay: idx * 0.1 }}
                   className={`relative overflow-hidden border-4 border-black bg-gray-100 group aspect-square sm:aspect-auto ${item.className}`}
                 >
-                  <img 
-                    src={item.src} 
-                    alt={`Gallery item ${idx}`}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
-                  />
+                  <div className="relative w-full h-full grayscale hover:grayscale-0 transition-all duration-500 group-hover:scale-105">
+                    <Image 
+                      src={item.src} 
+                      alt={`Gallery item ${idx}`}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
                   <div className="absolute top-4 right-4 bg-black text-white px-3 py-1 font-black text-xs opacity-0 group-hover:opacity-100 transition-opacity">
                     ITEM_{String(idx + 1).padStart(2, '0')}
                   </div>

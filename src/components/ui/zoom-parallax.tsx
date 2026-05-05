@@ -2,6 +2,7 @@
 
 import { useScroll, useTransform, motion } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 
 interface ImageProps {
 	src: string;
@@ -76,10 +77,12 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 							className={`absolute top-0 flex h-full w-full items-center justify-center ${position}`}
 						>
 							<div className="relative h-[20vh] w-[60vw] md:h-[25vh] md:w-[25vw] overflow-hidden">
-								<img
+								<Image
 									src={src || '/placeholder.svg'}
 									alt={alt || `Parallax image ${index + 1}`}
-									className="h-full w-full object-cover"
+									fill
+									className="object-cover"
+									unoptimized
 								/>
 							</div>
 						</motion.div>
