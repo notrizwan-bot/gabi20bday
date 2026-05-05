@@ -4,46 +4,8 @@ import { Component as EtheralShadow } from "@/components/ui/etheral-shadow";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-
-interface GalleryItem {
-  label: string;
-  img: string;
-  color: string;
-}
-
-function ParallaxCard({ item, index }: { item: GalleryItem, index: number }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, index % 2 === 0 ? 100 : -100]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [index % 2 === 0 ? -5 : 5, index % 2 === 0 ? 5 : -5]);
-
-  return (
-    <motion.div 
-      ref={ref}
-      style={{ y, rotate }}
-      className="group relative transition-transform duration-500"
-    >
-      <div 
-        className="bg-white border-4 border-black p-4 shadow-[15px_15px_0px_var(--shadow-color)] group-hover:shadow-[5px_5px_0px_var(--shadow-color)] transition-all" 
-        style={{ "--shadow-color": item.color } as React.CSSProperties}
-      >
-        <div className="aspect-[3/4] relative bg-gray-900 border-2 border-black mb-6 overflow-hidden">
-          <Image 
-            src={encodeURI(item.img)} 
-            alt={item.label} 
-            fill
-            className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
-          />
-        </div>
-        <p className="font-black uppercase text-black text-xl leading-none text-center">{item.label}</p>
-      </div>
-    </motion.div>
-  );
-}
+import { ZoomParallax } from "@/components/ui/zoom-parallax";
+import Lenis from '@studio-freight/lenis';
 
 export default function Home() {
   const [timeLeft, setTimeLeft] = useState({
@@ -54,26 +16,18 @@ export default function Home() {
   });
 
   useEffect(() => {
+    const lenis = new Lenis();
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
     const targetDate = new Date("2027-05-05T00:50:00");
-
-    const timer = setInterval(() => {
-      const now = new Date();
-      const difference = targetDate.getTime() - now.getTime();
-
-      if (difference <= 0) {
-        clearInterval(timer);
-        return;
-      }
-
-      setTimeLeft({
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60)
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
+...
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
 
   return (
@@ -214,12 +168,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Photo Gallery */}
+        {/* Photo Gallery - Zoom Parallax */}
         <section 
-          style={{ marginTop: '4rem', paddingTop: '6rem', paddingBottom: '6rem' }}
+          style={{ marginTop: '4rem' }}
           className="w-full bg-black text-white border-y-[12px] border-black overflow-hidden relative"
         >
-          <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+          <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none z-0">
              <div className="grid grid-cols-12 gap-4 h-full">
                {Array.from({ length: 48 }).map((_, i) => (
                  <div key={i} className="border-r border-white/20 h-full" />
@@ -227,26 +181,23 @@ export default function Home() {
              </div>
           </div>
           
-          <div className="max-w-7xl mx-auto px-8">
-            <h2 className="text-6xl md:text-9xl font-black uppercase mb-32 tracking-tighter text-center italic transform -rotate-2">
-              THE RECEIPTS
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 md:gap-24">
-              {[
-                { label: "Exhibit A: The Vision", img: "/images/IMG_9018.jpeg", color: "#ffcc00" },
-                { label: "Exhibit B: The Aura", img: "/images/IMG_9535.jpeg", color: "#ff0000" },
-                { label: "Exhibit C: The Chaos", img: "/images/WhatsApp Image 2026-05-05 at 14.25.43.jpeg", color: "#0000ff" },
-                { label: "Exhibit D: The Rebrand", img: "/images/IMG_9472.jpeg", color: "#ffcc00" },
-                { label: "Exhibit E: The Menace", img: "/images/WhatsApp Image 2026-05-05 at 14.25.44.jpeg", color: "#ff0000" },
-                { label: "Exhibit F: The Energy", img: "/images/WhatsApp Image 2026-05-05 at 14.25.44 (1).jpeg", color: "#0000ff" },
-                { label: "Exhibit G: The Main Character", img: "/images/WhatsApp Image 2026-05-05 at 14.25.44 (2).jpeg", color: "#ffcc00" },
-                { label: "Exhibit H: The Moment", img: "/images/WhatsApp Image 2026-05-05 at 14.25.45.jpeg", color: "#ff0000" },
-                { label: "Exhibit I: The Legacy", img: "/images/WhatsApp Image 2026-05-05 at 14.25.45 (1).jpeg", color: "#0000ff" }
-              ].map((item, i) => (
-                <ParallaxCard key={i} item={item} index={i} />
-              ))}
+          <div className="relative z-10">
+            <div className="max-w-7xl mx-auto px-8 py-32 text-center">
+              <h2 className="text-6xl md:text-9xl font-black uppercase tracking-tighter italic transform -rotate-2">
+                THE RECEIPTS
+              </h2>
+              <p className="text-2xl font-black uppercase mt-4 opacity-50">SCROLL TO WITNESS THE CHAOS</p>
             </div>
+            
+            <ZoomParallax images={[
+              { src: "/images/IMG_9018.jpeg", alt: "Gabi Exhibit A" },
+              { src: "/images/IMG_9535.jpeg", alt: "Gabi Exhibit B" },
+              { src: "/images/WhatsApp Image 2026-05-05 at 14.25.43.jpeg", alt: "Gabi Exhibit C" },
+              { src: "/images/IMG_9472.jpeg", alt: "Gabi Exhibit D" },
+              { src: "/images/WhatsApp Image 2026-05-05 at 14.25.44.jpeg", alt: "Gabi Exhibit E" },
+              { src: "/images/WhatsApp Image 2026-05-05 at 14.25.44 (1).jpeg", alt: "Gabi Exhibit F" },
+              { src: "/images/WhatsApp Image 2026-05-05 at 14.25.44 (2).jpeg", alt: "Gabi Exhibit G" }
+            ]} />
           </div>
         </section>
 
