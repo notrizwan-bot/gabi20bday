@@ -5,7 +5,13 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-function ParallaxCard({ item, index }: { item: any, index: number }) {
+interface GalleryItem {
+  label: string;
+  img: string;
+  color: string;
+}
+
+function ParallaxCard({ item, index }: { item: GalleryItem, index: number }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -21,7 +27,10 @@ function ParallaxCard({ item, index }: { item: any, index: number }) {
       style={{ y, rotate }}
       className="group relative transition-transform duration-500"
     >
-      <div className="bg-white border-4 border-black p-4 shadow-[15px_15px_0px_var(--shadow-color)] group-hover:shadow-[5px_5px_0px_var(--shadow-color)] transition-all" style={{ "--shadow-color": item.color } as any}>
+      <div 
+        className="bg-white border-4 border-black p-4 shadow-[15px_15px_0px_var(--shadow-color)] group-hover:shadow-[5px_5px_0px_var(--shadow-color)] transition-all" 
+        style={{ "--shadow-color": item.color } as React.CSSProperties}
+      >
         <div className="aspect-[3/4] relative bg-gray-900 border-2 border-black mb-6 overflow-hidden">
           <Image 
             src={encodeURI(item.img)} 
