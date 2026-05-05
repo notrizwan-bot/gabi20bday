@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 
 export default function Home() {
   return (
@@ -24,7 +22,7 @@ export default function Home() {
           <span className="highlight" style={{ fontSize: "0.4em", verticalAlign: "middle" }}>VERIFIED 20</span>
         </h1>
         <p style={{ fontSize: "1.5rem", maxWidth: "600px", margin: "0 auto", fontWeight: "600" }}>
-          After two decades of market dominance in the "being a menace" industry, Gabi is officially pivoting to her 20s. 
+          After two decades of market dominance in the &quot;being a menace&quot; industry, Gabi is officially pivoting to her 20s. 
           Expect a complete rebrand.
         </p>
       </section>
@@ -44,7 +42,7 @@ export default function Home() {
         <div className="brutalist-card" style={{ gridColumn: "span 6", background: "#000", color: "#fff" }}>
           <h2>OFFICIAL STATEMENT</h2>
           <p style={{ marginTop: "1rem", fontStyle: "italic" }}>
-            "I'm not getting older, I'm just becoming a more expensive version of myself."
+            &quot;I&apos;m not getting older, I&apos;m just becoming a more expensive version of myself.&quot;
           </p>
           <p style={{ marginTop: "1rem", fontSize: "0.8rem", opacity: 0.7 }}>
             — Gabi, Minutes after realizing her teen years are over.
