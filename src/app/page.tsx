@@ -263,7 +263,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className={`relative overflow-hidden border-4 border-black bg-gray-100 group aspect-square sm:aspect-auto ${item.className}`}
+                  className={`relative overflow-hidden border-4 border-black bg-gray-100 group aspect-square ${item.className}`}
                 >
                   <div className="relative w-full h-full grayscale hover:grayscale-0 transition-all duration-500 group-hover:scale-105">
                     <Image 
