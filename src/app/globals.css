@@ -1,0 +1,116 @@
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --accent: #ff0000; /* Ironic Red */
+  --caution: #ffcc00; /* Satirical Yellow */
+  --border: #000000;
+  --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Times New Roman", Times, serif;
+  --chaos-shadow: 8px 8px 0px var(--foreground);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-main);
+  line-height: 1.2;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+}
+
+.brutalist-card {
+  border: 4px solid var(--border);
+  background: var(--background);
+  padding: 2rem;
+  box-shadow: var(--chaos-shadow);
+  position: relative;
+}
+
+.brutalist-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0px var(--foreground);
+}
+
+.highlight {
+  background: var(--caution);
+  padding: 0 0.5rem;
+  border: 2px solid var(--foreground);
+}
+
+.marquee-container {
+  background: var(--foreground);
+  color: var(--background);
+  padding: 1rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 4px solid var(--border);
+  border-bottom: 4px solid var(--border);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.marquee-text {
+  display: inline-block;
+  font-weight: 900;
+  text-transform: uppercase;
+  animation: marquee 20s linear infinite;
+  font-size: 2rem;
+}
+
+.chaotic-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.overlap-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 5rem;
+  position: absolute;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Birthday Specifics */
+.gabi-stamp {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 150px;
+  height: 150px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 900;
+  transform: rotate(-15deg);
+  border: 4px solid var(--foreground);
+  z-index: 100;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gabi-stamp:hover {
+  transform: rotate(5deg) scale(1.1);
+}
